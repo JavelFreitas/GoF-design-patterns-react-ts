@@ -1,28 +1,30 @@
+export type observableFunction = (update: string) => void
+
+
 export const useObserver = () => {
-    let subscribers = [] as (() => void)[];
+    let subscribers = [] as observableFunction[];
 
-    function subscribe(toggleState: () => void) {
-        console.log(toggleState);
+    let changeString = 'Eita'
 
-        // if (subscribers.includes(toggleState)) { return; }
-        // setSubscribers([...subscribers, toggleState])
-
+    function subscribe(toggleState: observableFunction) {
+        if (subscribers.includes(toggleState)) { return; }
         subscribers.push(toggleState)
     }
 
-    function unSubscribe(toggleState: () => void) {
+    function unSubscribe(toggleState: observableFunction) {
         if (!subscribers.includes(toggleState)) { return; }
 
         let newSubs = subscribers.filter(functions => functions !== toggleState)
         subscribers = ([...newSubs])
     }
 
-    function notifySubscribers() {
-        console.log("notify");
-        console.log("subscribers" + subscribers);
+    function setChangeString(newString: string) {
+        changeString = newString
+    }
 
+    function notifySubscribers() {
         subscribers.forEach(subs => {
-            subs();
+            subs(changeString);
         })
     }
 
@@ -30,6 +32,7 @@ export const useObserver = () => {
         subscribe,
         subscribers,
         unSubscribe,
+        setChangeString,
         notifySubscribers
     }
 }

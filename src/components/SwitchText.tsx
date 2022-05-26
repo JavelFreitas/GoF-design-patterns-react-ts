@@ -1,12 +1,13 @@
 import { memo, useEffect, useState } from "react"
+import { observableFunction } from "../hooks/useObserver";
 
 interface ISwitchText {
-    observable?: (observerFunction: () => void) => void
+    observable?: (observerFunction: observableFunction) => void
 }
 
 function SwitchText(props: ISwitchText) {
     const [text, setText] = useState('TTTTTT');
-    const renameText = () => setText('WWWWWWW');
+    const renameText: observableFunction = (update: string) => setText(update);
 
     useEffect(() => {
         if (!!props.observable) {

@@ -11,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <button onClick={() => observer.notifySubscribers()}>Observable change</button>
+      <button onClick={() => observer.setChangeString('UEPAA')}>Change String</button>
       <SwitchText />
       <SwitchText observable={observer.subscribe} />
       <SwitchText />
