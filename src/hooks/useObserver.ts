@@ -4,7 +4,7 @@ export type observableFunction = (update: string) => void
 export const useObserver = () => {
     let subscribers = [] as observableFunction[];
 
-    let changeString = 'Eita'
+    let changeString = 'Eita';
 
     function subscribe(toggleState: observableFunction) {
         if (subscribers.includes(toggleState)) { return; }
@@ -20,6 +20,7 @@ export const useObserver = () => {
 
     function setChangeString(newString: string) {
         changeString = newString
+        notifySubscribers()
     }
 
     function notifySubscribers() {
